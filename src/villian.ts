@@ -18,17 +18,10 @@ export class Villian extends ex.Actor {
         this.character = character;
     };
 
-    // moveTo(pos: ex.Vector) {
-    //     this.target = pos;
-    //     this.dir = this.target.sub(this.pos);
-    //     this.vel = new ex.Vector(1, 1);
-    // }
-
     override onInitialize(engine: ex.Engine): void {
         this.collider.set(ex.Shape.Box(32, 32)); // match the visual size
         this.body.collisionType = ex.CollisionType.Passive;
     }
-
 
     override onPreUpdate(engine: ex.Engine, delta: number) {
         // if (this.target) {
@@ -46,15 +39,10 @@ export class Villian extends ex.Actor {
         }
     }
 
-    // override onPostUpdate(engine: ex.Engine): void {
-    //     engine.input.pointers.primary.on("down", (evt) => {
-
-    //         const targetPos = evt.worldPos; // Position in world space
-    //         if (this.vel.equals(ex.Vector.Zero)) {
-
-    //             this.moveTo(targetPos);
-    //         }
-    //     });
-    // };
+    override onCollisionStart(_self: ex.Collider, other: ex.Collider): void {
+        if (other.owner instanceof Character) {
+            other.owner.kill(); // or trigger game over
+        }
+    }
 
 };
