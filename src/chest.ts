@@ -17,5 +17,10 @@ export class Chest extends ex.Actor {
         });
     };
 
+    override onInitialize(engine: ex.Engine): void {
+        this.body.collisionType = ex.CollisionType.Fixed;
+    }
+
+
 
 };

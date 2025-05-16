@@ -24,7 +24,12 @@ export class Character extends ex.Actor {
         this.xTurn = Math.abs(this.dir.x) > Math.abs(this.dir.y)
     }
 
-    onPreUpdate(engine: ex.Engine, delta: number) {
+    override onInitialize(engine: ex.Engine): void {
+        this.body.collisionType = ex.CollisionType.Passive;
+    }
+
+
+    override onPreUpdate(engine: ex.Engine, delta: number) {
         if (this.move) {
 
             const threshold = 2; // or something small like 0.5
