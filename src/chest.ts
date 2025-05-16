@@ -9,7 +9,7 @@ export class Chest extends ex.Actor {
 
     constructor() {
         super({
-            x: 300,
+            x: 200,
             y: 300,
             width: 32,
             height: 32,

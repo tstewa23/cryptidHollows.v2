@@ -1,19 +1,19 @@
 import * as ex from 'excalibur';
-import { Chest } from './chest';
+import { Character } from './character';
 
-export class Character extends ex.Actor {
+export class Villian extends ex.Actor {
     private target: ex.Vector;
     private dir: ex.Vector;
     private xTurn: boolean;
-    private speed: number = 200; // pixels per second
+    private speed: number = 100; // pixels per second
 
     constructor() {
         super({
-            x: 30,
-            y: 30,
+            x: 500,
+            y: 120,
             width: 32,
             height: 32,
-            color: ex.Color.fromRGB(50, 50, 50, 255)
+            color: ex.Color.fromRGB(150, 150, 150, 255)
         });
     };
 
