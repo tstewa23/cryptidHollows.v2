@@ -1,4 +1,5 @@
-import * as ex from 'excalibur'
+import * as ex from 'excalibur';
+import { Level } from './level';
 
 
 const game = new ex.Engine({
@@ -7,7 +8,9 @@ const game = new ex.Engine({
     backgroundColor: ex.Color.fromRGB(100, 120, 105, 255),
     pixelArt: true,
     pixelRatio: 2,
-    displayMode: ex.DisplayMode.FitScreen
+    scenes: { Level: Level },
 });
 
-game.start();
+game.start().then(() => {
+    game.goToScene('Level');
+});
