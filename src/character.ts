@@ -12,10 +12,9 @@ export class Character extends ex.Actor {
         super({
             x: 30,
             y: 30,
-            width: 30,
-            height: 30,
-            color: ex.Color.fromRGB(50, 50, 50, 255),
-            z: 2
+            width: 32,
+            height: 32,
+            color: ex.Color.fromRGB(50, 50, 50, 255)
         });
     };
 
@@ -27,11 +26,15 @@ export class Character extends ex.Actor {
     }
 
     override onInitialize(engine: ex.Engine): void {
-        this.body.collisionType = ex.CollisionType.Passive;
+        this.collider.set(ex.Shape.Box(32, 32)); // match the visual size
+        this.body.collisionType = ex.CollisionType.Active;
     }
 
 
     override onPreUpdate(engine: ex.Engine, delta: number) {
+
+        console.log(this.move);
+
         if (this.move) {
 
             const threshold = 2; // or something small like 0.5
@@ -63,16 +66,5 @@ export class Character extends ex.Actor {
             }
         });
     };
-
-    override onCollisionStart(_self: ex.Collider, other: ex.Collider): void {
-        if (other.owner instanceof Chest) {
-            this.vel = ex.Vector.Zero;
-            this.move = false;
-
-            const chest = other.owner as Chest;
-            chest.color = ex.Color.fromRGB(255, 255, 0, 255);
-            console.log(chest.color);
-        }
-    }
 
 };
