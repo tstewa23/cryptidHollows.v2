@@ -1,9 +1,11 @@
 import * as ex from 'excalibur';
 
 export class Character extends ex.Actor {
-    private target: ex.Vector | null = null;
-    private speed: number = 100; // pixels per second
-    private xTurn: boolean = true;
+    private target: ex.Vector;
+    private dir: ex.Vector;
+    private move: boolean = false;
+    private xTurn: boolean;
+    private speed: number = 150; // pixels per second
 
     constructor() {
         super({
@@ -17,36 +19,41 @@ export class Character extends ex.Actor {
 
     moveTo(pos: ex.Vector) {
         this.target = pos;
+        this.dir = this.target.sub(this.pos);
+        this.move = true;
+        this.xTurn = Math.abs(this.dir.x) > Math.abs(this.dir.y)
     }
 
     onPreUpdate(engine: ex.Engine, delta: number) {
-        if (this.target) {
-            const dir = this.target.sub(this.pos);
-            const distance = dir.magnitude;
+        if (this.move) {
 
-            if (distance < 2) {
+            const threshold = 2; // or something small like 0.5
+
+            if (this.xTurn && Math.abs(this.pos.x - this.target.x) < threshold) {
+                // reached x target
                 this.vel = ex.Vector.Zero;
-                this.target = null;
-            } else {
-                this.vel = dir.normalize().scale(this.speed);
+                this.move = false;
+            } else if (!this.xTurn && Math.abs(this.pos.y - this.target.y) < threshold) {
+                // reached y target
+                this.vel = ex.Vector.Zero;
+                this.move = false;
             }
-            // } else {
-            //     const slope = dir.normalize().scale(this.speed);
-            //     if (this.xTurn) {
-            //         this.vel = new ex.Vector(slope.x, 0);
-            //         this.xTurn = false;
-            //     } else if (!this.xTurn) {
-            //         this.vel = new ex.Vector(0, slope.x);
-            //         this.xTurn = true;
-            //     }
-            // }
+            else {
+                if (this.xTurn) {
+                    this.vel = new ex.Vector(Math.sign(this.dir.x), 0).scale(this.speed);
+                } else {
+                    this.vel = new ex.Vector(0, Math.sign(this.dir.y)).scale(this.speed);
+                }
+            }
         }
     }
 
     override onPostUpdate(engine: ex.Engine): void {
         engine.input.pointers.primary.on("down", (evt) => {
             const targetPos = evt.worldPos; // Position in world space
-            this.moveTo(targetPos);
+            if (!this.move) {
+                this.moveTo(targetPos);
+            }
         });
     };
 
