@@ -1,7 +1,10 @@
-import * as ex from 'excalibur'
+import * as ex from 'excalibur';
+import { Character } from './character'
 
 export class Level extends ex.Scene {
+    character = new Character();
+
     override onInitialize(engine: ex.Engine): void {
-        console.log('and scene')
+        this.add(this.character);
     }
-}
+};
