@@ -5,7 +5,7 @@ import { Chest } from './chest'
 
 export class Level extends ex.Scene {
     character = new Character();
-    villian = new Villian();
+    villian = new Villian(this.character);
     chest = new Chest();
 
     override onInitialize(engine: ex.Engine): void {
