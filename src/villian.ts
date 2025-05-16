@@ -13,7 +13,8 @@ export class Villian extends ex.Actor {
             y: 120,
             width: 32,
             height: 32,
-            color: ex.Color.fromRGB(150, 150, 150, 255)
+            color: ex.Color.fromRGB(150, 150, 150, 255),
+            z: 10
         });
         this.character = character;
     };
