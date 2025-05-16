@@ -5,7 +5,7 @@ export class Villian extends ex.Actor {
     private character: Character;
     private target: ex.Vector;
     private dir: ex.Vector;
-    private speed: number = 80; // pixels per second
+    private speed: number = 100; // pixels per second
 
     constructor(character: Character) {
         super({
@@ -41,7 +41,11 @@ export class Villian extends ex.Actor {
 
     override onCollisionStart(_self: ex.Collider, other: ex.Collider): void {
         if (other.owner instanceof Character) {
-            other.owner.kill(); // or trigger game over
+            if (!other.owner.armed) {
+                other.owner.kill();
+            } else {
+                this.kill();
+            }
         }
     }
 

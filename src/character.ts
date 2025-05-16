@@ -6,6 +6,8 @@ export class Character extends ex.Actor {
     private dir: ex.Vector;
     private xTurn: boolean;
     private speed: number = 200; // pixels per second
+    private boxGraphic: ex.Rectangle;
+    public armed: boolean = false;
 
     constructor() {
         super({
@@ -13,9 +15,23 @@ export class Character extends ex.Actor {
             y: 30,
             width: 32,
             height: 32,
+        });
+
+        // Create and store the graphic
+        this.boxGraphic = new ex.Rectangle({
+            width: 32,
+            height: 32,
             color: ex.Color.fromRGB(50, 50, 50, 255)
         });
+
+        // Use it for the actor’s appearance
+        this.graphics.use(this.boxGraphic);
+
     };
+
+    public changeColor(newColor: ex.Color) {
+        this.boxGraphic.color = newColor;
+    }
 
     moveTo(pos: ex.Vector) {
 
@@ -56,13 +72,18 @@ export class Character extends ex.Actor {
 
     override onPostUpdate(engine: ex.Engine): void {
         engine.input.pointers.primary.on("down", (evt) => {
-
             const targetPos = evt.worldPos; // Position in world space
             if (this.vel.equals(ex.Vector.Zero)) {
-
                 this.moveTo(targetPos);
             }
         });
     };
+
+    override onCollisionStart(_self: ex.Collider, other: ex.Collider): void {
+        if (other.owner instanceof Chest) {
+            this.changeColor(ex.Color.fromRGB(120, 100, 0, 255));
+            this.armed = true;
+        }
+    }
 
 };
