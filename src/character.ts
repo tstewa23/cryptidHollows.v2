@@ -4,7 +4,6 @@ import { Chest } from './chest'
 export class Character extends ex.Actor {
     private target: ex.Vector;
     private dir: ex.Vector;
-    private move: boolean = false;
     private xTurn: boolean;
     private speed: number = 150; // pixels per second
 
@@ -19,10 +18,11 @@ export class Character extends ex.Actor {
     };
 
     moveTo(pos: ex.Vector) {
+
         this.target = pos;
         this.dir = this.target.sub(this.pos);
-        this.move = true;
         this.xTurn = Math.abs(this.dir.x) > Math.abs(this.dir.y)
+        this.vel = new ex.Vector(1, 1);
     }
 
     override onInitialize(engine: ex.Engine): void {
@@ -33,20 +33,16 @@ export class Character extends ex.Actor {
 
     override onPreUpdate(engine: ex.Engine, delta: number) {
 
-        console.log(this.move);
-
-        if (this.move) {
+        if (this.vel !== ex.Vector.Zero && this.target) {
 
             const threshold = 2; // or something small like 0.5
 
             if (this.xTurn && Math.abs(this.pos.x - this.target.x) < threshold) {
                 // reached x target
                 this.vel = ex.Vector.Zero;
-                this.move = false;
             } else if (!this.xTurn && Math.abs(this.pos.y - this.target.y) < threshold) {
                 // reached y target
                 this.vel = ex.Vector.Zero;
-                this.move = false;
             }
             else {
                 if (this.xTurn) {
@@ -60,8 +56,10 @@ export class Character extends ex.Actor {
 
     override onPostUpdate(engine: ex.Engine): void {
         engine.input.pointers.primary.on("down", (evt) => {
+
             const targetPos = evt.worldPos; // Position in world space
-            if (!this.move) {
+            if (this.vel.equals(ex.Vector.Zero)) {
+
                 this.moveTo(targetPos);
             }
         });
