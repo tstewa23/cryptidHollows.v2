@@ -13,7 +13,7 @@ export class Character extends ex.Actor {
             y: 30,
             width: 30,
             height: 30,
-            color: ex.Color.fromRGB(100, 50, 50, 255)
+            color: ex.Color.fromRGB(50, 50, 50, 255)
         });
     };
 
@@ -56,5 +56,13 @@ export class Character extends ex.Actor {
             }
         });
     };
+
+    // override onCollisionStart(_self: ex.Collider, other: ex.Collider): void {
+    //     if (other.owner instanceof Ground ||
+    //         other.owner instanceof Pipe
+    //     ) {
+    //         this.level.triggerGameOver();
+    //     }
+    // }
 
 };
