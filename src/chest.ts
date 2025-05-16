@@ -13,7 +13,8 @@ export class Chest extends ex.Actor {
             y: 300,
             width: 30,
             height: 30,
-            color: ex.Color.fromRGB(100, 50, 50, 255)
+            color: ex.Color.fromRGB(100, 50, 50, 255),
+            z: 1
         });
     };
 
