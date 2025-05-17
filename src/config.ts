@@ -23,7 +23,7 @@ export const Config = {
     characterX: (u * 6) + (u / 2),
     characterY: (u) + (u / 2),
     characterSpeed: u * 6,
-    characterColor: ex.Color.Blue,
-    characterColorTwo: ex.Color.Yellow,
+    characterColor: ex.Color.fromRGB(0, 0, 255, 180),
+    characterColorTwo: ex.Color.fromRGB(255, 255, 0, 180),
 
 } as const;

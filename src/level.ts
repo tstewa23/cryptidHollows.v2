@@ -16,7 +16,7 @@ export class Level extends ex.Scene {
         public villianZ: number,
         public villianSpeed: number,
         public backgroundColor: ex.Color,
-        public chestColor: ex.Color = ex.Color.Brown
+        public chestColor: ex.Color = ex.Color.fromRGB(139, 69, 19, 200)
     ) {
         super();
     }

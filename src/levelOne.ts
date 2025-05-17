@@ -7,12 +7,12 @@ import { Config } from './config';
 export class LevelOne extends Level {
 
     constructor() {
-        const bgdColor = ex.Color.DarkGray;
+        const bgdColor = ex.Color.fromRGB(100, 100, 100, 255);
 
-        const wColor = ex.Color.Gray;
+        const wColor = ex.Color.fromRGB(200, 190, 170, 200);
 
         const vSize = Config.unit;
-        const vColor = ex.Color.White;
+        const vColor = ex.Color.fromRGB(255, 255, 255, 180);
         const vZ = 10;
         const vSpeed = Config.unit * 3;
 
