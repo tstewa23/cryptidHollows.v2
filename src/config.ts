@@ -1,5 +1,5 @@
 import * as ex from 'excalibur';
-
+// configs for every level ( whole game )
 const u = 32;
 
 export const Config = {
@@ -21,7 +21,7 @@ export const Config = {
     ],
 
     characterSpeed: u * 6,
-    characterColor: ex.Color.fromRGB(50, 50, 50, 255),
+    characterColor: ex.Color.fromRGB(50, 20, 0, 255),
     characterColorTwo: ex.Color.fromRGB(120, 100, 0, 255),
 
 } as const;

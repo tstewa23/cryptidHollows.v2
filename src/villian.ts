@@ -1,23 +1,23 @@
 import * as ex from 'excalibur';
-import { Config } from './config';
 import { Character } from './character';
 
 export class Villian extends ex.Actor {
     private character: Character;
     private target: ex.Vector;
     private dir: ex.Vector;
-    private speed: number = Config.unit * 3;
+    private speed: number;
 
-    constructor(x: number, y: number, size: number, color: ex.Color, character: Character) {
+    constructor(x: number, y: number, size: number, color: ex.Color, z: number, character: Character, speed: number) {
         super({
             x: x,
             y: y,
             width: size,
             height: size,
-            color: ex.Color.fromRGB(150, 150, 150, 255),
-            z: 10
+            color: color,
+            z: z
         });
         this.character = character;
+        this.speed = speed;
     };
 
     override onInitialize(engine: ex.Engine): void {
