@@ -1,27 +1,28 @@
 import * as ex from 'excalibur';
+import { Config } from './config';
 import { Chest } from './chest';
 
 export class Character extends ex.Actor {
     private target: ex.Vector;
     private dir: ex.Vector;
     private xTurn: boolean;
-    private speed: number = 200; // pixels per second
+    private speed: number = Config.characterSpeed; // pixels per second
     private boxGraphic: ex.Rectangle;
     public armed: boolean = false;
 
     constructor() {
         super({
-            x: 30,
-            y: 30,
-            width: 32,
-            height: 32,
+            x: Config.unit,
+            y: Config.unit,
+            width: Config.unit,
+            height: Config.unit,
         });
 
         // Create and store the graphic
         this.boxGraphic = new ex.Rectangle({
-            width: 32,
-            height: 32,
-            color: ex.Color.fromRGB(50, 50, 50, 255)
+            width: Config.unit,
+            height: Config.unit,
+            color: Config.characterColor
         });
 
         // Use it for the actor’s appearance
@@ -45,7 +46,6 @@ export class Character extends ex.Actor {
         this.collider.set(ex.Shape.Box(32, 32)); // match the visual size
         this.body.collisionType = ex.CollisionType.Active;
     }
-
 
     override onPreUpdate(engine: ex.Engine, delta: number) {
 
@@ -81,7 +81,7 @@ export class Character extends ex.Actor {
 
     override onCollisionStart(_self: ex.Collider, other: ex.Collider): void {
         if (other.owner instanceof Chest) {
-            this.changeColor(ex.Color.fromRGB(120, 100, 0, 255));
+            this.changeColor(Config.characterColorTwo);
             this.armed = true;
         }
     }

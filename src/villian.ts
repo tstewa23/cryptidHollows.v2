@@ -1,20 +1,21 @@
 import * as ex from 'excalibur';
+import { Config } from './config';
 import { Character } from './character';
 
 export class Villian extends ex.Actor {
     private character: Character;
     private target: ex.Vector;
     private dir: ex.Vector;
-    private speed: number = 100; // pixels per second
+    private speed: number = Config.villianSpeed;
 
     constructor(character: Character) {
         super({
-            x: 500,
-            y: 120,
-            width: 32,
-            height: 32,
-            color: ex.Color.fromRGB(150, 150, 150, 255),
-            z: 10
+            x: Config.villianX,
+            y: Config.villianY,
+            width: Config.unit,
+            height: Config.unit,
+            color: Config.villianColor,
+            z: Config.villianZ
         });
         this.character = character;
     };
@@ -29,7 +30,6 @@ export class Villian extends ex.Actor {
         this.target = this.character.pos;
         this.dir = this.target.sub(this.pos);
         const distance = this.dir.magnitude;
-        console.log(distance)
 
         if (distance < 2) {
             // reached x target

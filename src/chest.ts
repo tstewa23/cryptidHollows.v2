@@ -1,14 +1,15 @@
 import * as ex from 'excalibur';
+import { Config } from './config';
 
 export class Chest extends ex.Actor {
 
     constructor() {
         super({
-            x: 300,
-            y: 300,
-            width: 32,
-            height: 32,
-            color: ex.Color.fromRGB(100, 50, 50, 255)
+            x: Config.chestX,
+            y: Config.chestY,
+            width: Config.unit,
+            height: Config.unit,
+            color: Config.chestColor,
         });
     };
 
@@ -17,7 +18,5 @@ export class Chest extends ex.Actor {
         this.collider.set(ex.Shape.Box(32, 32)); // match the visual size
         this.body.collisionType = ex.CollisionType.Fixed;
     }
-
-
 
 };
