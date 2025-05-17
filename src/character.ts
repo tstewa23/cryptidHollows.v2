@@ -12,8 +12,8 @@ export class Character extends ex.Actor {
 
     constructor() {
         super({
-            x: Config.unit,
-            y: Config.unit,
+            x: Config.characterX,
+            y: Config.characterY,
             width: Config.unit,
             height: Config.unit,
         });

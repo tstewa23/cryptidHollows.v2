@@ -16,7 +16,7 @@ export class Level extends ex.Scene {
         public villianZ: number,
         public villianSpeed: number,
         public backgroundColor: ex.Color,
-        public chestColor: ex.Color = ex.Color.fromRGB(100, 50, 50, 255) // default value
+        public chestColor: ex.Color = ex.Color.Brown
     ) {
         super();
     }
@@ -26,14 +26,16 @@ export class Level extends ex.Scene {
 
         for (let y = 0; y < this.map.length; y++) {
             for (let x = 0; x < this.map[y].length; x++) {
+                const actorX = (x * Config.unit) + (Config.unit / 2);
+                const actorY = (y * Config.unit) + (Config.unit / 2);
                 if (this.map[y][x] === 1) {
-                    this.add(new Wall(x * Config.unit, y * Config.unit, Config.unit, this.wallColor));
+                    this.add(new Wall(actorX, actorY, Config.unit, this.wallColor));
                 }
                 if (this.map[y][x] === 2) {
-                    this.add(new Chest(x * Config.unit, y * Config.unit, Config.unit, this.chestColor));
+                    this.add(new Chest(actorX, actorY, Config.unit, this.chestColor));
                 }
                 if (this.map[y][x] === 3) {
-                    this.add(new Villian(x * Config.unit, y * Config.unit, this.villianSize, this.villianColor, this.villianZ, this.character, this.villianSpeed));
+                    this.add(new Villian(actorX, actorY, this.villianSize, this.villianColor, this.villianZ, this.character, this.villianSpeed));
                 }
             }
         }
