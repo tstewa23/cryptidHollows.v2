@@ -6,16 +6,16 @@ export class Villian extends ex.Actor {
     private character: Character;
     private target: ex.Vector;
     private dir: ex.Vector;
-    private speed: number = Config.villianSpeed;
+    private speed: number = Config.unit * 3;
 
-    constructor(character: Character) {
+    constructor(x: number, y: number, size: number, color: ex.Color, character: Character) {
         super({
-            x: Config.villianX,
-            y: Config.villianY,
-            width: Config.unit,
-            height: Config.unit,
-            color: Config.villianColor,
-            z: Config.villianZ
+            x: x,
+            y: y,
+            width: size,
+            height: size,
+            color: ex.Color.fromRGB(150, 150, 150, 255),
+            z: 10
         });
         this.character = character;
     };

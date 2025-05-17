@@ -1,20 +1,18 @@
 import * as ex from 'excalibur';
-import { Config } from './config';
 
 export class Chest extends ex.Actor {
 
-    constructor() {
+    constructor(x: number, y: number, size: number, color: ex.Color) {
         super({
-            x: Config.chestX,
-            y: Config.chestY,
-            width: Config.unit,
-            height: Config.unit,
-            color: Config.chestColor,
+            x: x,
+            y: y,
+            width: size,
+            height: size,
+            color: color,
         });
     };
 
     override onInitialize(engine: ex.Engine): void {
-
         this.collider.set(ex.Shape.Box(32, 32)); // match the visual size
         this.body.collisionType = ex.CollisionType.Fixed;
     }
